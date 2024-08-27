@@ -1,4 +1,4 @@
-type Operation = 'multiply' | 'add' | 'divide';
+import { parseBmiArguments } from './utils';
 
 const calculateBmi = (height: number, weight: number): string => {
     const bmi = weight / ((height * 0.01) ^ 2);
@@ -14,4 +14,13 @@ const calculateBmi = (height: number, weight: number): string => {
     }
 };
 
-console.log(calculateBmi(182, 70));
+try {
+    const { weight, height } = parseBmiArguments(process.argv);
+    console.log(calculateBmi(weight, height));
+} catch (error: unknown) {
+    let errorMessage = 'Something bad happened.';
+    if (error instanceof Error) {
+        errorMessage += ' Error: ' + error.message;
+    }
+    console.log(errorMessage);
+}
