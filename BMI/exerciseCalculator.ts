@@ -10,7 +10,7 @@ interface ExerciseResult {
     average: number;
 }
 
-const calculateExercises = (exercises: number[], targetAmount: number): ExerciseResult => {
+export const calculateExercises = (exercises: number[], targetAmount: number): ExerciseResult => {
     let exerciseTime: number = 0;
     let daysTrained: number = 0;
 
@@ -46,13 +46,15 @@ const calculateExercises = (exercises: number[], targetAmount: number): Exercise
     };
 };
 
-try {
-    const { target, exercises } = parseExerciseArguments(process.argv);
-    console.log(calculateExercises(exercises, target));
-} catch (error: unknown) {
-    let errorMessage = 'Something bad happened.';
-    if (error instanceof Error) {
-        errorMessage += ' Error: ' + error.message;
+if (require.main === module) {
+    try {
+        const { target, exercises } = parseExerciseArguments(process.argv);
+        console.log(calculateExercises(exercises, target));
+    } catch (error: unknown) {
+        let errorMessage = 'Something bad happened.';
+        if (error instanceof Error) {
+            errorMessage += ' Error: ' + error.message;
+        }
+        console.log(errorMessage);
     }
-    console.log(errorMessage);
 }
