@@ -25,7 +25,12 @@ interface exerciseArguments {
 export const parseExerciseArguments = (args: string[]): exerciseArguments => {
     if (args.length < 4) throw new Error('Not enough arguments');
 
-    if (!isNaN(Number(args[2])) && !isNaN(Number(args.slice(3).map(Number)))) {
+    const allNumbers = args
+        .slice(3)
+        .map(Number)
+        .every((number) => !isNaN(number));
+
+    if (!isNaN(Number(args[2])) && allNumbers) {
         return {
             target: Number(args[2]),
             exercises: args.slice(3).map(Number),
