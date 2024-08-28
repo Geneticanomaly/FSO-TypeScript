@@ -3,3 +3,12 @@ export type Diagnosis = {
     name: string;
     latin?: string;
 };
+
+export type Patient = {
+    id: string;
+    name: string;
+    occupation: string;
+    gender: string;
+    ssn?: string;
+    dateOfBirth?: string;
+};

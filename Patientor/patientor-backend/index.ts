@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
-import { Diagnosis } from './types';
+import patientRouter from './routes/patients';
+import diagnoseRouter from './routes/diagnoses';
 
 const app = express();
 
@@ -11,17 +12,8 @@ app.get('/api/ping', (_req, res) => {
     res.send('Pong!');
 });
 
-app.get('/api/diagnoses', (_req, res) => {
-    const diagnoses: Diagnosis[] = [
-        {
-            code: 'something',
-            name: 'testname',
-            latin: 'latin',
-        },
-        { code: 'what', name: 'testWhat' },
-    ];
-    res.json(diagnoses);
-});
+app.use('/api/diagnoses', diagnoseRouter);
+app.use('/api/patients', patientRouter);
 
 const PORT = 3001;
 
