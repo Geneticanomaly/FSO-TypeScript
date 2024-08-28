@@ -8,7 +8,15 @@ export type Patient = {
     id: string;
     name: string;
     occupation: string;
-    gender: string;
+    gender: Gender;
     ssn?: string;
     dateOfBirth?: string;
 };
+
+export type newPatientEntry = Omit<Patient, 'id'>;
+
+export enum Gender {
+    Male = 'male',
+    Female = 'female',
+    Other = 'other',
+}
