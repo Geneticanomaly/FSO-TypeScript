@@ -33,11 +33,13 @@ app.post('/exercises', (req, res) => {
         return res.status(400).send({ error: 'parameters missing' });
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     const allNumbers = daily_exercises.map(Number).every((exercise: number) => !isNaN(exercise));
     if (!allNumbers || isNaN(Number(target))) {
         return res.status(400).send({ error: 'malformatted parameters' });
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     const result = calculateExercises(daily_exercises, target);
     return res.send(result);
 });
