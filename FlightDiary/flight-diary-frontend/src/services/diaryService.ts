@@ -8,7 +8,6 @@ const getAll = async () => {
 };
 
 const create = async (diary: NewDiaryEntry) => {
-    console.log('MYDIARY', diary);
     const res = await axios.post(baseUrl, diary);
     return res.data;
 };

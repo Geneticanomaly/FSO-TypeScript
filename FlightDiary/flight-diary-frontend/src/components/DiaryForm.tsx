@@ -1,17 +1,24 @@
 import { useState } from 'react';
-import { NewDiaryEntry, Visibility, Weather } from '../types';
+import { NewDiaryEntry, NonSensitiveDiaryEntry, Visibility, Weather } from '../types';
+import Notify from './Notify';
+import diaryService from '../services/diaryService';
+import axios from 'axios';
 
 type DiaryFormProps = {
-    createDiary: (diary: NewDiaryEntry) => Promise<void>;
+    diaries: NonSensitiveDiaryEntry[];
+    setDiaries: React.Dispatch<React.SetStateAction<NonSensitiveDiaryEntry[]>>;
+    // createDiary: (diary: NewDiaryEntry) => Promise<void>;
+    // notification: string | null;
 };
 
-const DiaryForm = ({ createDiary }: DiaryFormProps) => {
+const DiaryForm = ({ diaries, setDiaries }: DiaryFormProps) => {
     const [formData, setFormData] = useState({
         date: '',
         visibility: '',
         weather: '',
         comment: '',
     });
+    const [error, setError] = useState<string | null>(null);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData((prevState) => ({
@@ -29,9 +36,21 @@ const DiaryForm = ({ createDiary }: DiaryFormProps) => {
                 weather: formData.weather as Weather,
                 comment: formData.comment,
             };
-            createDiary(newObject);
-        } catch (error) {
-            console.log(error);
+            const newDiary = await diaryService.create(newObject);
+            if (newDiary.error) {
+                setError(newDiary.error[0].message);
+                setTimeout(() => {
+                    setError(null);
+                }, 5000);
+                throw new Error(newDiary.error[0].message);
+            }
+            setDiaries(diaries.concat(newDiary));
+        } catch (e: unknown) {
+            if (axios.isAxiosError(e)) {
+                console.log('ERROR', e.status);
+            } else {
+                console.log('Unknown error', e);
+            }
         }
 
         setFormData({
@@ -45,6 +64,7 @@ const DiaryForm = ({ createDiary }: DiaryFormProps) => {
     return (
         <div>
             <h2>Add new entry</h2>
+            {error && <Notify message={error} />}
             <form onSubmit={(e) => handleSubmit(e)}>
                 <div>
                     date

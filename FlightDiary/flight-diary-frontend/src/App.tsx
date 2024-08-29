@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { NewDiaryEntry, NonSensitiveDiaryEntry } from './types';
+import { NonSensitiveDiaryEntry } from './types';
 import diaryService from './services/diaryService';
 import DiaryList from './components/DiaryList';
 import DiaryForm from './components/DiaryForm';
@@ -15,14 +15,9 @@ function App() {
         fetchDiaries();
     }, []);
 
-    const createDiary = async (diary: NewDiaryEntry) => {
-        const newDiary = await diaryService.create(diary);
-        setDiaries([...diaries, newDiary]);
-    };
-
     return (
         <div>
-            <DiaryForm createDiary={createDiary} />
+            <DiaryForm diaries={diaries} setDiaries={setDiaries} />
             <DiaryList diaries={diaries} />
         </div>
     );
