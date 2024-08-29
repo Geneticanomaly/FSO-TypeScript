@@ -3,7 +3,7 @@ type TotalProps = {
 };
 
 const Total = ({ totalExercises }: TotalProps) => {
-    return <p>{totalExercises}</p>;
+    return <p>Number of exercises {totalExercises}</p>;
 };
 
 export default Total;
