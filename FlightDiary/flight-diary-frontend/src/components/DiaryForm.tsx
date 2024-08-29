@@ -7,8 +7,6 @@ import axios from 'axios';
 type DiaryFormProps = {
     diaries: NonSensitiveDiaryEntry[];
     setDiaries: React.Dispatch<React.SetStateAction<NonSensitiveDiaryEntry[]>>;
-    // createDiary: (diary: NewDiaryEntry) => Promise<void>;
-    // notification: string | null;
 };
 
 const DiaryForm = ({ diaries, setDiaries }: DiaryFormProps) => {
@@ -25,6 +23,7 @@ const DiaryForm = ({ diaries, setDiaries }: DiaryFormProps) => {
             ...prevState,
             [e.target.name]: e.target.value,
         }));
+        console.log(formData);
     };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -68,23 +67,81 @@ const DiaryForm = ({ diaries, setDiaries }: DiaryFormProps) => {
             <form onSubmit={(e) => handleSubmit(e)}>
                 <div>
                     date
-                    <input type="text" name="date" value={formData.date} onChange={(e) => handleChange(e)} />
+                    <input type="date" name="date" value={formData.date} onChange={(e) => handleChange(e)} />
                 </div>
                 <div>
-                    visibility
+                    visibility great
                     <input
-                        type="text"
+                        type="radio"
+                        id="great"
                         name="visibility"
-                        value={formData.visibility}
+                        value="great"
+                        onChange={(e) => handleChange(e)}
+                    />
+                    good
+                    <input
+                        type="radio"
+                        id="good"
+                        name="visibility"
+                        value="good"
+                        onChange={(e) => handleChange(e)}
+                    />
+                    ok
+                    <input
+                        type="radio"
+                        id="ok"
+                        name="visibility"
+                        value="ok"
+                        onChange={(e) => handleChange(e)}
+                    />
+                    poor
+                    <input
+                        type="radio"
+                        id="poor"
+                        name="visibility"
+                        value="poor"
                         onChange={(e) => handleChange(e)}
                     />
                 </div>
                 <div>
-                    weather
+                    weather sunny
                     <input
-                        type="text"
+                        type="radio"
+                        id="sunny"
                         name="weather"
-                        value={formData.weather}
+                        value="sunny"
+                        onChange={(e) => handleChange(e)}
+                    />
+                    rainy
+                    <input
+                        type="radio"
+                        id="rainy"
+                        name="weather"
+                        value="rainy"
+                        onChange={(e) => handleChange(e)}
+                    />
+                    cloudy
+                    <input
+                        type="radio"
+                        id="cloudy"
+                        name="weather"
+                        value="cloudy"
+                        onChange={(e) => handleChange(e)}
+                    />
+                    stormy
+                    <input
+                        type="radio"
+                        id="stormy"
+                        name="weather"
+                        value="stormy"
+                        onChange={(e) => handleChange(e)}
+                    />
+                    windy
+                    <input
+                        type="radio"
+                        id="windy"
+                        name="weather"
+                        value="windy"
                         onChange={(e) => handleChange(e)}
                     />
                 </div>
