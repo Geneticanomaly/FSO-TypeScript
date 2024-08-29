@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { NewDiaryEntry } from '../types';
 const baseUrl = 'http://localhost:3000/api/diaries';
 
 const getAll = async () => {
@@ -6,4 +7,10 @@ const getAll = async () => {
     return res.data;
 };
 
-export default { getAll };
+const create = async (diary: NewDiaryEntry) => {
+    console.log('MYDIARY', diary);
+    const res = await axios.post(baseUrl, diary);
+    return res.data;
+};
+
+export default { getAll, create };
