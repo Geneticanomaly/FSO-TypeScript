@@ -13,6 +13,12 @@ const addPatient = (entry: newPatientEntry) => {
     return newPatient;
 };
 
+const getPatientById = (id: string): Patient | undefined => {
+    const patient = patients.find((patient) => patient.id === id);
+    return patient;
+};
+
 export default {
     addPatient,
+    getPatientById,
 };

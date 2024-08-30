@@ -37,6 +37,16 @@ router.post(
     }
 );
 
+router.get('/:id', (req: Request, res: Response) => {
+    const patient = patientService.getPatientById(req.params.id);
+
+    if (!patient) {
+        res.status(404);
+    }
+
+    res.json(patient);
+});
+
 router.use(errorMiddleware);
 
 export default router;
