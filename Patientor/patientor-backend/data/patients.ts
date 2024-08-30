@@ -32,7 +32,7 @@ const data: Patient[] = [
         name: 'Dana Scully',
         dateOfBirth: '1974-01-05',
         ssn: '050174-432N',
-        gender: Gender.Male,
+        gender: Gender.Female,
         occupation: 'Forensic Pathologist',
     },
     {
