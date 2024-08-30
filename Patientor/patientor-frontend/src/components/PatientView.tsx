@@ -4,6 +4,7 @@ import patientService from '../services/patients';
 import { Patient } from '../types';
 import MaleIcon from '@mui/icons-material/Male';
 import FemaleIcon from '@mui/icons-material/Female';
+import EntryList from './EntryList';
 
 const PatientView = () => {
     const id = useParams().id;
@@ -12,6 +13,7 @@ const PatientView = () => {
     useEffect(() => {
         const fetchPatientData = async () => {
             const patient = await patientService.getPatient(id);
+            console.log(patient);
             setPatient(patient);
         };
         fetchPatientData();
@@ -28,6 +30,7 @@ const PatientView = () => {
             </h3>
             <p style={{ marginBottom: 0 }}>ssh: {patient.ssn}</p>
             <p style={{ marginTop: 0 }}>occupation: {patient.occupation}</p>
+            <EntryList entries={patient.entries} />
         </div>
     );
 };
