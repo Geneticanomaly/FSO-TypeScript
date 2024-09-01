@@ -1,8 +1,8 @@
 import express, { Request, Response, NextFunction } from 'express';
 import patientData from '../../data/patients';
-import { newPatientEntry, Patient } from '../types';
+import { Diagnosis, Entry, EntryWithoutId, newPatientEntry, Patient } from '../types';
 import patientService from '../services/patientService';
-import { NewPatientSchema } from '../utils';
+import { NewEntrySchema, NewPatientSchema } from '../utils';
 import { z } from 'zod';
 
 const router = express.Router();
@@ -47,6 +47,41 @@ router.get('/:id', (req: Request, res: Response) => {
     res.json(patient);
 });
 
+const parseDiagnosisCodes = (object: unknown): Array<Diagnosis['code']> => {
+    if (!object || typeof object !== 'object' || !('diagnosisCodes' in object)) {
+        return [] as Array<Diagnosis['code']>;
+    }
+    return object.diagnosisCodes as Array<Diagnosis['code']>;
+};
+
+const newEntryParser = (req: Request, _res: Response, next: NextFunction) => {
+    try {
+        NewEntrySchema.parse(req.body);
+        next();
+    } catch (error: unknown) {
+        next(error);
+    }
+};
+
+router.post(
+    '/:id/entries',
+    newEntryParser,
+    (req: Request<{ id: string }, unknown, EntryWithoutId>, res: Response<Entry>) => {
+        const diagnosisCodes = parseDiagnosisCodes(req.body);
+        const newEntry = patientService.addEntry(req.params.id, { ...req.body, diagnosisCodes });
+        return res.json(newEntry);
+    }
+);
+
 router.use(errorMiddleware);
 
 export default router;
+
+// {
+//     "type": "HealthCheck",
+//     "description": "good",
+//     "date": "2023-01-04",
+//     "specialist": "Dr House",
+//     "healthCheckRating": 1,
+//     "diagnosisCodes": ["Z57.1, N30.0"]
+// }
