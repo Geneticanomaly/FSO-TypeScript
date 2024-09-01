@@ -19,7 +19,6 @@ const getPatientById = (id: string): Patient | undefined => {
 };
 
 const addEntry = (id: string, entry: EntryWithoutId) => {
-    console.log('ENTRY', entry);
     const newEntry = {
         id: uuid(),
         ...entry,
