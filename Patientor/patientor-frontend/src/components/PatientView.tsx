@@ -33,7 +33,7 @@ const PatientView = () => {
             </h3>
             <p style={{ marginBottom: 0 }}>ssh: {patient.ssn}</p>
             <p style={{ marginTop: 0 }}>occupation: {patient.occupation}</p>
-            <EntryList entries={patient.entries} diagnoses={diagnoses} />
+            <EntryList entries={patient.entries} />
         </div>
     );
 };
