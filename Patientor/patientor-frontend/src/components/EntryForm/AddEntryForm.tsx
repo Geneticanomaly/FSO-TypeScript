@@ -104,6 +104,10 @@ const AddEntryForm = ({
             ...prevState,
             dischargeDate: '',
         }));
+        setFormData((prevState) => ({
+            ...prevState,
+            date: '',
+        }));
     }, [type]);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
