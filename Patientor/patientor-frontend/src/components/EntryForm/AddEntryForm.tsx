@@ -91,6 +91,7 @@ const AddEntryForm = ({
         setSickLeaveStart(null);
         setSickLeaveEnd(null);
         setDischargeStart(null);
+        setVisitDate(null);
         setFormData((prevState) => ({
             ...prevState,
             sickLeaveStartDate: '',
@@ -146,6 +147,7 @@ const AddEntryForm = ({
         setSickLeaveStart(null);
         setSickLeaveEnd(null);
         setDischargeStart(null);
+        setVisitDate(null);
         setShowEntryForm(!showEntryForm);
     };
 
