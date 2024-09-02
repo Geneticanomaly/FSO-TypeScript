@@ -76,5 +76,5 @@ export type EntryFormData = {
     sickLeaveEndDate?: string;
     dischargeDate?: string;
     dischargeCriteria: string;
-    diagnosisCodes: string;
+    diagnosisCodes: string[];
 };

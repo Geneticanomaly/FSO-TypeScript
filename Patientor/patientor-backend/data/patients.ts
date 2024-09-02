@@ -1,6 +1,5 @@
 import { Patient, Gender, HealthCheckRating } from '../src/types';
 import { toNewPatientEntry } from '../src/utils';
-// import { HealthCheckRating } from '../src/types';
 
 const data: Patient[] = [
     {

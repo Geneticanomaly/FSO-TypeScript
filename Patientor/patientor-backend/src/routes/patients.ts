@@ -76,12 +76,3 @@ router.post(
 router.use(errorMiddleware);
 
 export default router;
-
-// {
-//     "type": "HealthCheck",
-//     "description": "good",
-//     "date": "2023-01-04",
-//     "specialist": "Dr House",
-//     "healthCheckRating": 1,
-//     "diagnosisCodes": ["Z57.1, N30.0"]
-// }

@@ -8,12 +8,14 @@ import FemaleIcon from '@mui/icons-material/Female';
 import EntryList from './EntryList';
 import AddEntryForm from './EntryForm/AddEntryForm';
 import { Button } from '@mui/material';
+import Notification from './Notification';
 
 const PatientView = () => {
     const id = useParams().id;
     const [patient, setPatient] = useState<Patient>();
     const [diagnoses, setDiagnoses] = useState<Diagnosis[]>([]);
     const [showEntryForm, setShowEntryForm] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
         const fetchPatientData = async () => {
@@ -45,14 +47,17 @@ const PatientView = () => {
                     Add entry
                 </Button>
             )}
+            {errorMessage && <Notification message={errorMessage} />}
             {showEntryForm && (
                 <AddEntryForm
                     showEntryForm={showEntryForm}
                     setShowEntryForm={setShowEntryForm}
                     setPatient={setPatient}
+                    setErrorMessage={setErrorMessage}
+                    diagnoses={diagnoses}
                 />
             )}
-            <EntryList entries={patient.entries} />
+            <EntryList entries={patient.entries} diagnoses={diagnoses} />
         </div>
     );
 };

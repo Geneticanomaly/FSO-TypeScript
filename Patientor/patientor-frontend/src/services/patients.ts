@@ -22,14 +22,12 @@ const getPatient = async (id: string | undefined) => {
 };
 
 const addEntry = async (id: string | undefined, type: string, formData: EntryFormData) => {
-    console.log('FORMDATA', formData);
-
     const entryData = {
         type,
         description: formData.description,
-        date: formData.date,
+        date: convertDate(formData.date),
         specialist: formData.specialist,
-        diagnosisCodes: formData.diagnosisCodes.split(',').map((code) => code.trim()),
+        diagnosisCodes: formData.diagnosisCodes,
 
         ...(type === 'HealthCheck' &&
             formData.healthCheckRating && {
